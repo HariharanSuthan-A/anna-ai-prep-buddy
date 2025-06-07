@@ -1,11 +1,10 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { GraduationCap, ArrowLeft, Send, MessageCircle, Bot, User, Sparkles, Menu, X } from "lucide-react";
+import { GraduationCap, ArrowLeft, Send, MessageCircle, Bot, User, Sparkles, Menu, X, Crown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Chat = () => {
@@ -15,7 +14,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI assistant for Anna University exam preparation. I can help you with structured answers based on university evaluation patterns. Choose between 2-mark quick responses or 16-mark detailed explanations. What would you like to know?",
+      text: "Hello! I'm your AI assistant for Anna University exam preparation. I can help you with structured answers based on university evaluation patterns. Choose between **2-mark quick responses** or **16-mark detailed explanations**. What would you like to know?",
       sender: "ai",
       timestamp: new Date().toLocaleTimeString()
     }
@@ -23,6 +22,56 @@ const Chat = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [selectedAnswerType, setSelectedAnswerType] = useState<"2mark" | "16mark" | null>(null);
+  const [usageCount, setUsageCount] = useState({ twoMark: 0, sixteenMark: 0 });
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Usage limits for free users
+  const FREE_LIMITS = {
+    twoMark: 3,
+    sixteenMark: 2
+  };
+
+  // Load usage from localStorage on component mount
+  useEffect(() => {
+    const savedUsage = localStorage.getItem('stubud_usage');
+    const lastResetDate = localStorage.getItem('stubud_last_reset');
+    const today = new Date().toDateString();
+
+    if (lastResetDate !== today) {
+      // Reset daily usage
+      setUsageCount({ twoMark: 0, sixteenMark: 0 });
+      localStorage.setItem('stubud_usage', JSON.stringify({ twoMark: 0, sixteenMark: 0 }));
+      localStorage.setItem('stubud_last_reset', today);
+    } else if (savedUsage) {
+      setUsageCount(JSON.parse(savedUsage));
+    }
+    setIsLoading(false);
+  }, []);
+
+  // Function to format text with bold
+  const formatText = (text: string) => {
+    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  };
+
+  const checkUsageLimit = (answerType: "2mark" | "16mark") => {
+    if (answerType === "2mark" && usageCount.twoMark >= FREE_LIMITS.twoMark) {
+      return false;
+    }
+    if (answerType === "16mark" && usageCount.sixteenMark >= FREE_LIMITS.sixteenMark) {
+      return false;
+    }
+    return true;
+  };
+
+  const updateUsageCount = (answerType: "2mark" | "16mark") => {
+    const newUsage = {
+      ...usageCount,
+      [answerType === "2mark" ? "twoMark" : "sixteenMark"]: 
+        usageCount[answerType === "2mark" ? "twoMark" : "sixteenMark"] + 1
+    };
+    setUsageCount(newUsage);
+    localStorage.setItem('stubud_usage', JSON.stringify(newUsage));
+  };
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) {
@@ -37,7 +86,17 @@ const Chat = () => {
     if (!selectedAnswerType) {
       toast({
         title: "Select answer format",
-        description: "Please choose between 2-mark or 16-mark answer format.",
+        description: "Please choose between **2-mark** or **16-mark** answer format.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check usage limits for free users
+    if (!checkUsageLimit(selectedAnswerType)) {
+      toast({
+        title: "Daily limit reached",
+        description: `You've reached your daily limit for ${selectedAnswerType} answers. Upgrade to premium for unlimited access!`,
         variant: "destructive"
       });
       return;
@@ -52,13 +111,14 @@ const Chat = () => {
 
     setMessages(prev => [...prev, userMessage]);
     const currentQuestion = inputMessage;
+    const currentAnswerType = selectedAnswerType;
     setInputMessage("");
     setIsTyping(true);
 
     try {
       const answerTypePrompt = selectedAnswerType === "2mark" 
-        ? "Provide a concise, structured 2-mark answer with key points. Keep it brief but comprehensive, suitable for quick revision."
-        : "Provide a detailed, comprehensive 16-mark answer with introduction, detailed explanation, examples, diagrams if applicable, and conclusion. Structure it with proper headings and subpoints.";
+        ? "Provide a concise, structured **2-mark answer** with key points. Keep it brief but comprehensive, suitable for quick revision."
+        : "Provide a detailed, comprehensive **16-mark answer** with introduction, detailed explanation, examples, diagrams if applicable, and conclusion. Structure it with proper headings and subpoints.";
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDkbEjn21-DvyI795K4fR1N5irLt1Is2H0`, {
         method: 'POST',
@@ -72,7 +132,7 @@ const Chat = () => {
 
 Question: ${currentQuestion}
 
-Please format your response appropriately for Anna University evaluation standards with proper structure and academic language.`
+Please format your response appropriately for Anna University evaluation standards with proper structure and academic language. Use **text** for bold formatting.`
             }]
           }],
           generationConfig: {
@@ -99,6 +159,9 @@ Please format your response appropriately for Anna University evaluation standar
       };
 
       setMessages(prev => [...prev, aiMessage]);
+      
+      // Update usage count
+      updateUsageCount(currentAnswerType);
       setSelectedAnswerType(null); // Reset selection after sending
     } catch (error) {
       console.error('Error calling Gemini API:', error);
@@ -129,6 +192,17 @@ Please format your response appropriately for Anna University evaluation standar
     "Explain database normalization"
   ];
 
+  if (isLoading) {
+    return <div className="min-h-screen bg-gradient-to-br from-background via-educational-50/30 to-success-50/30 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-4 animate-spin">
+          <GraduationCap className="h-6 w-6 text-white" />
+        </div>
+        <p className="text-educational-600">Loading...</p>
+      </div>
+    </div>;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-educational-50/30 to-success-50/30">
       {/* Navigation */}
@@ -149,17 +223,27 @@ Please format your response appropriately for Anna University evaluation standar
                   <GraduationCap className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
                 <div>
-                  <span className="text-xl lg:text-2xl font-bold text-educational-900">StudyBuddy</span>
+                  <span className="text-xl lg:text-2xl font-bold text-educational-900">**Stubud.io**</span>
                   <p className="text-xs text-educational-600 hidden sm:block">AI Chat Assistant</p>
                 </div>
               </div>
             </div>
             
-            <Badge className="bg-gradient-to-r from-educational-600 to-success-600 text-white px-3 py-1">
-              <Sparkles className="h-3 w-3 mr-1" />
-              <span className="hidden sm:inline">AI Assistant</span>
-              <span className="sm:hidden">AI</span>
-            </Badge>
+            <div className="flex items-center space-x-2">
+              <Button
+                onClick={() => navigate('/pricing')}
+                className="bg-gradient-to-r from-success-600 to-educational-600 hover:from-success-700 hover:to-educational-700 text-white px-3 py-1.5 text-sm"
+              >
+                <Crown className="h-3 w-3 mr-1" />
+                <span className="hidden sm:inline">**Upgrade**</span>
+                <span className="sm:hidden">**Pro**</span>
+              </Button>
+              <Badge className="bg-gradient-to-r from-educational-600 to-success-600 text-white px-3 py-1">
+                <Sparkles className="h-3 w-3 mr-1" />
+                <span className="hidden sm:inline">AI Assistant</span>
+                <span className="sm:hidden">AI</span>
+              </Badge>
+            </div>
           </div>
         </div>
       </nav>
@@ -169,21 +253,47 @@ Please format your response appropriately for Anna University evaluation standar
         <div className="text-center mb-8 animate-fade-in">
           <h1 className="text-3xl lg:text-4xl font-bold mb-2 text-educational-900 flex items-center justify-center">
             <MessageCircle className="h-8 w-8 lg:h-10 lg:w-10 mr-3" />
-            AI Chat Assistant
+            **AI Chat Assistant**
           </h1>
           <p className="text-lg lg:text-xl text-foreground/80">
-            Get answers in Anna University evaluation format
+            Get answers in **Anna University evaluation format**
           </p>
         </div>
+
+        {/* Usage Counter */}
+        <Card className="mb-6 bg-gradient-to-r from-educational-50 to-success-50 border-educational-200">
+          <CardContent className="p-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-semibold text-educational-900">**Daily Usage** (Free Plan)</h3>
+                <p className="text-sm text-educational-600">Resets every day at midnight</p>
+              </div>
+              <div className="text-right">
+                <div className="text-sm">
+                  <span className="font-medium">2-mark:</span> {usageCount.twoMark}/{FREE_LIMITS.twoMark}
+                  <span className="mx-2">|</span>
+                  <span className="font-medium">16-mark:</span> {usageCount.sixteenMark}/{FREE_LIMITS.sixteenMark}
+                </div>
+                <Button
+                  onClick={() => navigate('/pricing')}
+                  size="sm"
+                  className="mt-2 bg-success-600 hover:bg-success-700 text-white"
+                >
+                  **Upgrade for Unlimited**
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Answer Type Selection */}
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-lg text-educational-900 flex items-center">
-              <span>Choose Answer Format</span>
+              <span>**Choose Answer Format**</span>
               {selectedAnswerType && (
                 <Badge className="ml-3 bg-success-100 text-success-700">
-                  {selectedAnswerType === "2mark" ? "2-Mark Selected" : "16-Mark Selected"}
+                  {selectedAnswerType === "2mark" ? "**2-Mark Selected**" : "**16-Mark Selected**"}
                 </Badge>
               )}
             </CardTitle>
@@ -196,12 +306,16 @@ Please format your response appropriately for Anna University evaluation standar
                   selectedAnswerType === "2mark" 
                     ? "bg-educational-600 text-white" 
                     : "hover:bg-educational-50"
-                }`}
+                } ${usageCount.twoMark >= FREE_LIMITS.twoMark ? "opacity-50" : ""}`}
                 onClick={() => setSelectedAnswerType("2mark")}
+                disabled={usageCount.twoMark >= FREE_LIMITS.twoMark}
               >
                 <div>
-                  <div className="font-semibold text-lg mb-1">2-Mark Answer</div>
+                  <div className="font-semibold text-lg mb-1">**2-Mark Answer**</div>
                   <div className="text-sm opacity-80">Quick, concise responses with key points</div>
+                  <div className="text-xs mt-1">
+                    Remaining: {FREE_LIMITS.twoMark - usageCount.twoMark}
+                  </div>
                 </div>
               </Button>
               <Button
@@ -210,12 +324,16 @@ Please format your response appropriately for Anna University evaluation standar
                   selectedAnswerType === "16mark" 
                     ? "bg-educational-600 text-white" 
                     : "hover:bg-educational-50"
-                }`}
+                } ${usageCount.sixteenMark >= FREE_LIMITS.sixteenMark ? "opacity-50" : ""}`}
                 onClick={() => setSelectedAnswerType("16mark")}
+                disabled={usageCount.sixteenMark >= FREE_LIMITS.sixteenMark}
               >
                 <div>
-                  <div className="font-semibold text-lg mb-1">16-Mark Answer</div>
+                  <div className="font-semibold text-lg mb-1">**16-Mark Answer**</div>
                   <div className="text-sm opacity-80">Detailed explanations with examples</div>
+                  <div className="text-xs mt-1">
+                    Remaining: {FREE_LIMITS.sixteenMark - usageCount.sixteenMark}
+                  </div>
                 </div>
               </Button>
             </div>
@@ -267,9 +385,10 @@ Please format your response appropriately for Anna University evaluation standar
                         ? 'bg-educational-600 text-white' 
                         : 'bg-background border border-educational-200'
                     }`}>
-                      <p className="whitespace-pre-line text-sm lg:text-base leading-relaxed">
-                        {message.text}
-                      </p>
+                      <div 
+                        className="whitespace-pre-line text-sm lg:text-base leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: formatText(message.text) }}
+                      />
                       <p className={`text-xs mt-2 ${
                         message.sender === 'user' ? 'text-educational-200' : 'text-foreground/60'
                       }`}>
@@ -321,7 +440,7 @@ Please format your response appropriately for Anna University evaluation standar
               </Button>
             </div>
             <p className="text-xs text-foreground/60 mt-2">
-              Choose answer format above, then ask your question to get structured responses per Anna University evaluation pattern
+              Choose answer format above, then ask your question to get structured responses per **Anna University evaluation pattern**
             </p>
           </CardContent>
         </Card>

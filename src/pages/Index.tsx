@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -98,7 +97,7 @@ const Index = () => {
                 <GraduationCap className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
               </div>
               <div>
-                <span className="text-xl lg:text-2xl font-bold text-educational-900">StudyBuddy</span>
+                <span className="text-xl lg:text-2xl font-bold text-educational-900">**Stubud.io**</span>
                 <p className="text-xs text-educational-600 hidden sm:block">AI Learning Assistant</p>
               </div>
             </div>
@@ -108,6 +107,13 @@ const Index = () => {
               <a href="#features" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">Features</a>
               <a href="#testimonials" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">Reviews</a>
               <a href="#about" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">About</a>
+              <Button 
+                onClick={() => navigate('/pricing')}
+                variant="outline"
+                className="border-educational-300 text-educational-700 hover:bg-educational-50 mr-2"
+              >
+                Pricing
+              </Button>
               <Button 
                 onClick={() => navigate('/chat')}
                 className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-6 py-2.5 shadow-lg"
@@ -135,6 +141,16 @@ const Index = () => {
                 <a href="#about" className="text-educational-700 font-medium" onClick={() => setIsMenuOpen(false)}>About</a>
                 <Button 
                   onClick={() => {
+                    navigate('/pricing');
+                    setIsMenuOpen(false);
+                  }}
+                  variant="outline"
+                  className="border-educational-300 text-educational-700 hover:bg-educational-50 w-full"
+                >
+                  View Pricing
+                </Button>
+                <Button 
+                  onClick={() => {
                     navigate('/chat');
                     setIsMenuOpen(false);
                   }}
@@ -154,20 +170,20 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="bg-gradient-to-r from-educational-600 to-success-600 text-white mb-6 px-4 py-2">
               <Sparkles className="h-4 w-4 mr-2" />
-              AI-Powered Academic Excellence
+              **AI-Powered Academic Excellence**
             </Badge>
             
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-educational-900 leading-tight">
-              Master Anna University
+              **Master Anna University**
               <span className="bg-gradient-to-r from-educational-600 to-success-600 bg-clip-text text-transparent block"> 
-                Exams with AI
+                **Exams with AI**
               </span>
             </h1>
             
             <p className="text-lg md:text-xl lg:text-2xl text-foreground/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Get precisely formatted answers for your engineering exams. Choose between quick 2-mark responses 
-              or comprehensive 16-mark explanations, all structured according to 
-              <span className="font-semibold text-educational-700"> Anna University evaluation standards</span>.
+              Get precisely formatted answers for your engineering exams. Choose between **quick 2-mark responses** 
+              or **comprehensive 16-mark explanations**, all structured according to 
+              <span className="font-semibold text-educational-700"> **Anna University evaluation standards**</span>.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -177,15 +193,16 @@ const Index = () => {
                 className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg shadow-xl w-full sm:w-auto"
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
-                Start AI Chat
+                **Start Free Trial**
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
+                onClick={() => navigate('/pricing')}
                 className="border-educational-300 text-educational-700 hover:bg-educational-50 px-8 py-6 text-lg w-full sm:w-auto"
               >
                 <BookOpen className="h-5 w-5 mr-2" />
-                Learn More
+                **View Pricing Plans**
               </Button>
             </div>
 
@@ -193,7 +210,7 @@ const Index = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-3xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-2xl lg:text-3xl font-bold text-educational-900 mb-1">{stat.number}</div>
+                  <div className="text-2xl lg:text-3xl font-bold text-educational-900 mb-1">**{stat.number}**</div>
                   <div className="text-sm text-foreground/70">{stat.label}</div>
                 </div>
               ))}
@@ -208,14 +225,14 @@ const Index = () => {
           <div className="text-center mb-16">
             <Badge className="bg-educational-100 text-educational-700 mb-4">
               <Shield className="h-3 w-3 mr-1" />
-              Premium Features
+              **Premium Features**
             </Badge>
             <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
-              Why Choose StudyBuddy?
+              **Why Choose Stubud.io?**
             </h2>
             <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
-              Experience cutting-edge AI technology designed specifically for academic excellence 
-              and examination success.
+              Experience **cutting-edge AI technology** designed specifically for **academic excellence** 
+              and **examination success**.
             </p>
           </div>
 
@@ -257,10 +274,10 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
-              Simple. Intelligent. Effective.
+              **Simple. Intelligent. Effective.**
             </h2>
             <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
-              Get started with AI-powered learning in three simple steps
+              Get started with **AI-powered learning** in three simple steps
             </p>
           </div>
 
@@ -301,7 +318,7 @@ const Index = () => {
               className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg shadow-xl"
             >
               <Sparkles className="h-5 w-5 mr-2" />
-              Try It Now - Free
+              **Try It Now - Free**
             </Button>
           </div>
         </div>
@@ -312,7 +329,7 @@ const Index = () => {
         <div className="container mx-auto px-4 lg:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
-              Trusted by Students Across India
+              **Trusted by Students Across India**
             </h2>
             <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
               Join thousands of successful students who have transformed their academic journey
@@ -358,16 +375,16 @@ const Index = () => {
               
               <Badge className="bg-white/20 text-white mb-6 px-4 py-2">
                 <CheckCircle className="h-4 w-4 mr-2" />
-                Ready to Excel?
+                **Ready to Excel?**
               </Badge>
               
               <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-                Start Your Academic Journey Today
+                **Start Your Academic Journey Today**
               </h2>
               
               <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed">
-                Join the growing community of successful students. Get instant AI assistance, 
-                structured answers, and examination-ready responses.
+                Join the growing community of **successful students**. Get **instant AI assistance**, 
+                **structured answers**, and **examination-ready responses**.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
@@ -377,14 +394,15 @@ const Index = () => {
                   className="bg-white text-educational-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold w-full sm:w-auto shadow-lg"
                 >
                   <MessageCircle className="h-5 w-5 mr-2" />
-                  Start Now
+                  **Start Free**
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
+                  onClick={() => navigate('/pricing')}
                   className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg w-full sm:w-auto"
                 >
-                  Learn More
+                  **View Plans**
                 </Button>
               </div>
             </CardContent>
@@ -400,10 +418,10 @@ const Index = () => {
               <div className="w-12 h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-xl flex items-center justify-center">
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl lg:text-3xl font-bold">StudyBuddy</span>
+              <span className="text-2xl lg:text-3xl font-bold">**Stubud.io**</span>
             </div>
             <p className="text-educational-200 mb-8 max-w-md mx-auto text-lg">
-              Your AI-powered study companion for academic excellence at Anna University.
+              Your **AI-powered study companion** for **academic excellence** at Anna University.
             </p>
             <div className="flex flex-wrap justify-center items-center gap-6 text-educational-200">
               <span className="flex items-center">
