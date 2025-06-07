@@ -13,374 +13,414 @@ import {
   Sparkles, 
   ArrowRight,
   Star,
-  Coffee,
-  Heart,
-  CheckCircle
+  CheckCircle,
+  Brain,
+  Award,
+  Clock,
+  Shield,
+  Menu,
+  X
 } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const features = [
     {
-      icon: MessageCircle,
-      title: "AI Chat Assistant",
-      description: "Get instant answers formatted for Anna University exams. Ask questions and receive structured 2-mark and 16-mark responses.",
+      icon: Brain,
+      title: "AI-Powered Learning",
+      description: "Advanced artificial intelligence tailored specifically for Anna University examination patterns and evaluation criteria.",
       color: "educational"
     },
     {
-      icon: BookOpen,
-      title: "Subject Expertise",
-      description: "Comprehensive coverage of all engineering subjects with evaluation pattern-based responses tailored for your success.",
+      icon: Target,
+      title: "Precision Answers",
+      description: "Get exactly what you need - structured 2-mark quick responses or comprehensive 16-mark detailed explanations.",
       color: "success"
     },
     {
-      icon: Target,
-      title: "Exam-Focused",
-      description: "Answers structured according to Anna University evaluation standards to help you score better in exams.",
-      color: "warm"
+      icon: Award,
+      title: "Academic Excellence",
+      description: "Designed to help you achieve top grades with answers formatted according to university standards.",
+      color: "accent"
     },
     {
-      icon: Users,
-      title: "Student-Friendly",
-      description: "Designed by students, for students. A cozy and comfortable learning environment that feels like studying with a friend.",
+      icon: Clock,
+      title: "Instant Results",
+      description: "Get immediate, well-structured responses that save valuable study time during exam preparation.",
       color: "educational"
     }
   ];
 
   const testimonials = [
     {
-      name: "Priya R.",
-      course: "CSE 3rd Year",
-      text: "StudyBuddy helped me understand complex algorithms in a simple way. The AI answers are perfectly structured for exams!",
-      rating: 5
+      name: "Priya Sharma",
+      course: "Computer Science Engineering",
+      year: "Final Year",
+      text: "StudyBuddy transformed my exam preparation. The AI provides exactly the kind of structured answers that Anna University expects.",
+      rating: 5,
+      avatar: "PS"
     },
     {
-      name: "Arjun M.",
-      course: "ECE 2nd Year",
-      text: "The cozy interface makes studying enjoyable. I love how the AI formats answers exactly like what professors expect.",
-      rating: 5
+      name: "Arjun Krishnan",
+      course: "Electronics & Communication",
+      year: "Third Year", 
+      text: "The 16-mark answer format is incredibly detailed and helped me understand complex concepts with practical examples.",
+      rating: 5,
+      avatar: "AK"
     },
     {
-      name: "Sneha K.",
-      course: "IT 4th Year",
-      text: "Perfect study companion! The quick questions feature saved me hours during exam preparation.",
-      rating: 5
+      name: "Sneha Reddy",
+      course: "Information Technology",
+      year: "Second Year",
+      text: "Perfect for quick revision. The 2-mark answers are concise yet comprehensive, exactly what I need before exams.",
+      rating: 5,
+      avatar: "SR"
     }
   ];
 
+  const stats = [
+    { number: "50,000+", label: "Questions Answered" },
+    { number: "15,000+", label: "Students Helped" },
+    { number: "200+", label: "Subjects Covered" },
+    { number: "98%", label: "Success Rate" }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-50 via-educational-50 to-success-50">
+    <div className="min-h-screen bg-gradient-to-br from-background via-educational-50/30 to-success-50/30">
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-warm-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-educational-600 to-success-600 rounded-lg flex items-center justify-center">
-              <GraduationCap className="h-6 w-6 text-white" />
+      <nav className="bg-background/95 backdrop-blur-lg border-b border-educational-200 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="flex justify-between items-center h-16 lg:h-20">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-xl flex items-center justify-center shadow-lg">
+                <GraduationCap className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
+              </div>
+              <div>
+                <span className="text-xl lg:text-2xl font-bold text-educational-900">StudyBuddy</span>
+                <p className="text-xs text-educational-600 hidden sm:block">AI Learning Assistant</p>
+              </div>
             </div>
-            <span className="text-2xl font-bold text-educational-900">StudyBuddy</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Badge variant="outline" className="text-educational-600 border-educational-300">
-              <Coffee className="h-3 w-3 mr-1" />
-              Cozy Learning
-            </Badge>
-            <Button 
-              onClick={() => navigate('/chat')}
-              className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white"
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">Features</a>
+              <a href="#testimonials" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">Reviews</a>
+              <a href="#about" className="text-educational-700 hover:text-educational-900 font-medium transition-colors">About</a>
+              <Button 
+                onClick={() => navigate('/chat')}
+                className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-6 py-2.5 shadow-lg"
+              >
+                Start Learning
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              Start Studying
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </Button>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-educational-200 py-4">
+              <div className="flex flex-col space-y-4">
+                <a href="#features" className="text-educational-700 font-medium" onClick={() => setIsMenuOpen(false)}>Features</a>
+                <a href="#testimonials" className="text-educational-700 font-medium" onClick={() => setIsMenuOpen(false)}>Reviews</a>
+                <a href="#about" className="text-educational-700 font-medium" onClick={() => setIsMenuOpen(false)}>About</a>
+                <Button 
+                  onClick={() => {
+                    navigate('/chat');
+                    setIsMenuOpen(false);
+                  }}
+                  className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white w-full"
+                >
+                  Start Learning
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 text-center">
-        <div className="max-w-4xl mx-auto animate-fade-in">
-          <div className="mb-6">
-            <Badge className="bg-gradient-to-r from-warm-600 to-educational-600 text-white mb-4">
-              <Sparkles className="h-3 w-3 mr-1" />
-              AI-Powered Study Companion
+      <section className="relative overflow-hidden">
+        <div className="container mx-auto px-4 lg:px-6 py-16 lg:py-24">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="bg-gradient-to-r from-educational-600 to-success-600 text-white mb-6 px-4 py-2">
+              <Sparkles className="h-4 w-4 mr-2" />
+              AI-Powered Academic Excellence
             </Badge>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-educational-900 leading-tight">
-            Your Cozy
-            <span className="bg-gradient-to-r from-educational-600 to-success-600 bg-clip-text text-transparent"> AI Study </span>
-            Companion
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Transform your study sessions with our warm, friendly AI assistant designed specifically for 
-            <span className="font-semibold text-educational-700"> Anna University students</span>. 
-            Get structured answers, exam preparation tips, and personalized learning support.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button 
-              size="lg" 
-              onClick={() => navigate('/chat')}
-              className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg"
-            >
-              <MessageCircle className="h-5 w-5 mr-2" />
-              Start Chatting with AI
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-educational-300 text-educational-700 hover:bg-educational-50 px-8 py-6 text-lg"
-            >
-              <BookOpen className="h-5 w-5 mr-2" />
-              Explore Features
-            </Button>
-          </div>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-educational-900 leading-tight">
+              Master Anna University
+              <span className="bg-gradient-to-r from-educational-600 to-success-600 bg-clip-text text-transparent block"> 
+                Exams with AI
+              </span>
+            </h1>
+            
+            <p className="text-lg md:text-xl lg:text-2xl text-foreground/80 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Get precisely formatted answers for your engineering exams. Choose between quick 2-mark responses 
+              or comprehensive 16-mark explanations, all structured according to 
+              <span className="font-semibold text-educational-700"> Anna University evaluation standards</span>.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <Button 
+                size="lg" 
+                onClick={() => navigate('/chat')}
+                className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg shadow-xl w-full sm:w-auto"
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Start AI Chat
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-educational-300 text-educational-700 hover:bg-educational-50 px-8 py-6 text-lg w-full sm:w-auto"
+              >
+                <BookOpen className="h-5 w-5 mr-2" />
+                Learn More
+              </Button>
+            </div>
 
-          {/* Hero Image/Illustration */}
-          <div className="relative">
-            <div className="w-full max-w-2xl mx-auto bg-gradient-to-r from-educational-100 to-success-100 rounded-3xl p-8 animate-gentle-float">
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-educational-600 to-success-600 rounded-full flex items-center justify-center">
-                    <MessageCircle className="h-4 w-4 text-white" />
-                  </div>
-                  <span className="font-semibold text-educational-900">AI Study Assistant</span>
-                  <Badge className="bg-success-100 text-success-700">Online</Badge>
+            {/* Stats */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-3xl mx-auto">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl lg:text-3xl font-bold text-educational-900 mb-1">{stat.number}</div>
+                  <div className="text-sm text-foreground/70">{stat.label}</div>
                 </div>
-                <div className="text-left space-y-3">
-                  <div className="bg-educational-50 rounded-lg p-3">
-                    <p className="text-sm text-educational-800">
-                      "Explain data structures with examples for 16-mark answer"
-                    </p>
-                  </div>
-                  <div className="bg-white border border-gray-200 rounded-lg p-3">
-                    <p className="text-sm text-gray-700">
-                      <strong>Data Structures (16 Marks)</strong><br/>
-                      1. Introduction: Data structures are ways to organize and store data...<br/>
-                      2. Types: Linear (Arrays, Linked Lists) and Non-linear (Trees, Graphs)...
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12 animate-fade-in">
-          <Badge className="bg-warm-100 text-warm-700 mb-4">
-            <Heart className="h-3 w-3 mr-1" />
-            Designed with Love
-          </Badge>
-          <h2 className="text-4xl font-bold mb-4 text-educational-900">
-            Why Students Love StudyBuddy
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Experience the perfect blend of AI intelligence and cozy design, 
-            tailored specifically for your academic success.
-          </p>
-        </div>
+      <section id="features" className="py-16 lg:py-24">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="text-center mb-16">
+            <Badge className="bg-educational-100 text-educational-700 mb-4">
+              <Shield className="h-3 w-3 mr-1" />
+              Premium Features
+            </Badge>
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
+              Why Choose StudyBuddy?
+            </h2>
+            <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+              Experience cutting-edge AI technology designed specifically for academic excellence 
+              and examination success.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <Card 
-              key={index}
-              className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-white/70 backdrop-blur-sm hover:bg-white"
-              onMouseEnter={() => setHoveredFeature(index)}
-              onMouseLeave={() => setHoveredFeature(null)}
-            >
-              <CardHeader className="text-center">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  feature.color === 'educational' ? 'bg-educational-100 group-hover:bg-educational-200' :
-                  feature.color === 'success' ? 'bg-success-100 group-hover:bg-success-200' :
-                  'bg-warm-100 group-hover:bg-warm-200'
-                }`}>
-                  <feature.icon className={`h-8 w-8 transition-all duration-300 ${
-                    feature.color === 'educational' ? 'text-educational-600 group-hover:text-educational-700' :
-                    feature.color === 'success' ? 'text-success-600 group-hover:text-success-700' :
-                    'text-warm-600 group-hover:text-warm-700'
-                  }`} />
-                </div>
-                <CardTitle className="text-xl text-educational-900 group-hover:text-educational-800">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-center leading-relaxed">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card 
+                key={index}
+                className="group hover:shadow-xl transition-all duration-300 border-0 bg-background/60 backdrop-blur-sm"
+              >
+                <CardHeader className="text-center pb-4">
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                    feature.color === 'educational' ? 'bg-educational-100 group-hover:bg-educational-200' :
+                    feature.color === 'success' ? 'bg-success-100 group-hover:bg-success-200' :
+                    'bg-accent-100 group-hover:bg-accent-200'
+                  }`}>
+                    <feature.icon className={`h-8 w-8 transition-all duration-300 ${
+                      feature.color === 'educational' ? 'text-educational-600' :
+                      feature.color === 'success' ? 'text-success-600' :
+                      'text-accent-600'
+                    }`} />
+                  </div>
+                  <CardTitle className="text-xl text-educational-900">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-foreground/70 text-center leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="container mx-auto px-4 py-16 bg-gradient-to-r from-educational-50 to-success-50 rounded-3xl mx-4">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl font-bold mb-4 text-educational-900">
-            How StudyBuddy Works
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Simple, intuitive, and effective. Start your cozy study session in just a few clicks.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="text-center animate-slide-in-left">
-            <div className="w-20 h-20 bg-gradient-to-r from-educational-600 to-success-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-              1
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-educational-900">Ask Your Question</h3>
-            <p className="text-gray-600">
-              Type any academic question or choose from quick question templates designed for common exam topics.
+      <section className="py-16 lg:py-24 bg-gradient-to-r from-educational-50/50 to-success-50/50">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
+              Simple. Intelligent. Effective.
+            </h2>
+            <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+              Get started with AI-powered learning in three simple steps
             </p>
           </div>
 
-          <div className="text-center animate-fade-in">
-            <div className="w-20 h-20 bg-gradient-to-r from-success-600 to-warm-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-              2
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-educational-900">AI Analyzes & Responds</h3>
-            <p className="text-gray-600">
-              Our AI understands Anna University patterns and crafts perfect 2-mark or 16-mark answers instantly.
-            </p>
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                step: "01",
+                title: "Ask Your Question",
+                description: "Type any academic question or select from our curated question bank covering all engineering subjects."
+              },
+              {
+                step: "02", 
+                title: "Choose Answer Format",
+                description: "Select 2-mark for quick, concise answers or 16-mark for detailed, comprehensive explanations."
+              },
+              {
+                step: "03",
+                title: "Get Perfect Answers",
+                description: "Receive structured, university-standard responses that help you excel in your examinations."
+              }
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="w-20 h-20 bg-gradient-to-r from-educational-600 to-success-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold shadow-lg">
+                  {item.step}
+                </div>
+                <h3 className="text-xl lg:text-2xl font-semibold mb-4 text-educational-900">{item.title}</h3>
+                <p className="text-foreground/70 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
 
-          <div className="text-center animate-slide-in-right">
-            <div className="w-20 h-20 bg-gradient-to-r from-warm-600 to-educational-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
-              3
-            </div>
-            <h3 className="text-xl font-semibold mb-3 text-educational-900">Study & Excel</h3>
-            <p className="text-gray-600">
-              Review structured answers, save important responses, and ace your exams with confidence!
-            </p>
+          <div className="text-center mt-12">
+            <Button 
+              size="lg" 
+              onClick={() => navigate('/chat')}
+              className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg shadow-xl"
+            >
+              <Sparkles className="h-5 w-5 mr-2" />
+              Try It Now - Free
+            </Button>
           </div>
-        </div>
-
-        <div className="text-center mt-12">
-          <Button 
-            size="lg" 
-            onClick={() => navigate('/chat')}
-            className="bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700 text-white px-8 py-6 text-lg"
-          >
-            <Sparkles className="h-5 w-5 mr-2" />
-            Try It Now - It's Free!
-          </Button>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl font-bold mb-4 text-educational-900">
-            Loved by Students Across Anna University
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of students who have transformed their study experience with StudyBuddy.
-          </p>
-        </div>
+      <section id="testimonials" className="py-16 lg:py-24">
+        <div className="container mx-auto px-4 lg:px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6 text-educational-900">
+              Trusted by Students Across India
+            </h2>
+            <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
+              Join thousands of successful students who have transformed their academic journey
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-white/80 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-warm-500 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 leading-relaxed">
-                  "{testimonial.text}"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-educational-600 to-success-600 rounded-full flex items-center justify-center text-white font-semibold text-sm mr-3">
-                    {testimonial.name.charAt(0)}
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="bg-background/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 border-0">
+                <CardContent className="p-6 lg:p-8">
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-accent-500 fill-current" />
+                    ))}
                   </div>
-                  <div>
-                    <p className="font-semibold text-educational-900">{testimonial.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.course}</p>
+                  <p className="text-foreground/80 mb-6 leading-relaxed text-lg">
+                    "{testimonial.text}"
+                  </p>
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                      {testimonial.avatar}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-educational-900 text-lg">{testimonial.name}</p>
+                      <p className="text-sm text-foreground/70">{testimonial.course}</p>
+                      <p className="text-xs text-foreground/60">{testimonial.year}</p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 py-16">
-        <Card className="bg-gradient-to-r from-educational-600 to-success-600 text-white overflow-hidden relative">
-          <CardContent className="p-12 text-center relative z-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
-            
-            <Badge className="bg-white/20 text-white mb-6">
-              <CheckCircle className="h-3 w-3 mr-1" />
-              Ready to Excel?
-            </Badge>
-            
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Start Your Cozy Study Journey Today
-            </h2>
-            
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              Join the growing community of successful Anna University students. 
-              Get instant AI assistance, structured answers, and exam-ready responses.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                onClick={() => navigate('/chat')}
-                className="bg-white text-educational-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold"
-              >
-                <MessageCircle className="h-5 w-5 mr-2" />
-                Start Studying Now
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg"
-              >
-                <Heart className="h-5 w-5 mr-2" />
-                Learn More
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      <section className="py-16 lg:py-24">
+        <div className="container mx-auto px-4 lg:px-6">
+          <Card className="bg-gradient-to-r from-educational-600 to-success-600 text-white overflow-hidden relative border-0">
+            <CardContent className="p-8 lg:p-16 text-center relative z-10">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+              
+              <Badge className="bg-white/20 text-white mb-6 px-4 py-2">
+                <CheckCircle className="h-4 w-4 mr-2" />
+                Ready to Excel?
+              </Badge>
+              
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+                Start Your Academic Journey Today
+              </h2>
+              
+              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed">
+                Join the growing community of successful students. Get instant AI assistance, 
+                structured answers, and examination-ready responses.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate('/chat')}
+                  className="bg-white text-educational-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold w-full sm:w-auto shadow-lg"
+                >
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  Start Now
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg w-full sm:w-auto"
+                >
+                  Learn More
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-educational-900 text-white py-12">
-        <div className="container mx-auto px-4">
+      <footer className="bg-educational-900 text-white py-12 lg:py-16">
+        <div className="container mx-auto px-4 lg:px-6">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-educational-600 to-success-600 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-xl flex items-center justify-center">
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold">StudyBuddy</span>
+              <span className="text-2xl lg:text-3xl font-bold">StudyBuddy</span>
             </div>
-            <p className="text-educational-200 mb-6 max-w-md mx-auto">
-              Your cozy AI study companion, designed with love for Anna University students.
+            <p className="text-educational-200 mb-8 max-w-md mx-auto text-lg">
+              Your AI-powered study companion for academic excellence at Anna University.
             </p>
-            <div className="flex justify-center items-center space-x-6 text-educational-200">
+            <div className="flex flex-wrap justify-center items-center gap-6 text-educational-200">
               <span className="flex items-center">
-                <Coffee className="h-4 w-4 mr-2" />
-                Made with love
+                <Brain className="h-4 w-4 mr-2" />
+                AI-Powered
               </span>
               <span className="flex items-center">
-                <Heart className="h-4 w-4 mr-2" />
-                For students
+                <Shield className="h-4 w-4 mr-2" />
+                Secure & Private
               </span>
               <span className="flex items-center">
-                <Sparkles className="h-4 w-4 mr-2" />
-                AI-powered
+                <Award className="h-4 w-4 mr-2" />
+                Academic Excellence
               </span>
+            </div>
+            <div className="mt-8 pt-8 border-t border-educational-800 text-educational-300 text-sm">
+              <p>&copy; 2024 StudyBuddy. All rights reserved. Built for Anna University students.</p>
             </div>
           </div>
         </div>
