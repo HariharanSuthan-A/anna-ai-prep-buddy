@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,43 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				educational: {
+					50: 'hsl(var(--educational-50))',
+					100: 'hsl(var(--educational-100))',
+					200: 'hsl(var(--educational-200))',
+					300: 'hsl(var(--educational-300))',
+					400: 'hsl(var(--educational-400))',
+					500: 'hsl(var(--educational-500))',
+					600: 'hsl(var(--educational-600))',
+					700: 'hsl(var(--educational-700))',
+					800: 'hsl(var(--educational-800))',
+					900: 'hsl(var(--educational-900))',
+				},
+				success: {
+					50: 'hsl(var(--success-50))',
+					100: 'hsl(var(--success-100))',
+					200: 'hsl(var(--success-200))',
+					300: 'hsl(var(--success-300))',
+					400: 'hsl(var(--success-400))',
+					500: 'hsl(var(--success-500))',
+					600: 'hsl(var(--success-600))',
+					700: 'hsl(var(--success-700))',
+					800: 'hsl(var(--success-800))',
+					900: 'hsl(var(--success-900))',
+				},
+				warm: {
+					50: 'hsl(var(--warm-50))',
+					100: 'hsl(var(--warm-100))',
+					200: 'hsl(var(--warm-200))',
+					300: 'hsl(var(--warm-300))',
+					400: 'hsl(var(--warm-400))',
+					500: 'hsl(var(--warm-500))',
+					600: 'hsl(var(--warm-600))',
+					700: 'hsl(var(--warm-700))',
+					800: 'hsl(var(--warm-800))',
+					900: 'hsl(var(--warm-900))',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -89,7 +126,10 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
