@@ -3,75 +3,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cozy Educational Design System */
+/* Elegant Educational Design System */
 
 @layer base {
   :root {
-    --background: 50 30% 98%;
-    --foreground: 30 20% 15%;
+    --background: 210 40% 98%;
+    --foreground: 210 30% 15%;
 
-    --card: 40 25% 96%;
-    --card-foreground: 30 20% 15%;
+    --card: 210 30% 96%;
+    --card-foreground: 210 30% 15%;
 
-    --popover: 40 25% 96%;
-    --popover-foreground: 30 20% 15%;
+    --popover: 210 30% 96%;
+    --popover-foreground: 210 30% 15%;
 
-    --primary: 200 85% 40%;
+    --primary: 220 85% 45%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 35 25% 88%;
-    --secondary-foreground: 30 20% 25%;
+    --secondary: 210 25% 88%;
+    --secondary-foreground: 210 30% 25%;
 
-    --muted: 35 15% 92%;
-    --muted-foreground: 30 10% 45%;
+    --muted: 210 20% 92%;
+    --muted-foreground: 210 15% 45%;
 
-    --accent: 35 25% 88%;
-    --accent-foreground: 30 20% 25%;
+    --accent: 210 25% 88%;
+    --accent-foreground: 210 30% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 35 20% 85%;
-    --input: 35 20% 85%;
-    --ring: 200 85% 40%;
+    --border: 210 25% 85%;
+    --input: 210 25% 85%;
+    --ring: 220 85% 45%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Educational theme colors */
-    --educational-50: 200 70% 96%;
-    --educational-100: 200 65% 90%;
-    --educational-200: 200 60% 80%;
-    --educational-300: 200 55% 70%;
-    --educational-400: 200 50% 60%;
-    --educational-500: 200 85% 40%;
-    --educational-600: 200 85% 35%;
-    --educational-700: 200 85% 30%;
-    --educational-800: 200 85% 25%;
-    --educational-900: 200 85% 20%;
+    --educational-50: 220 70% 97%;
+    --educational-100: 220 65% 92%;
+    --educational-200: 220 60% 85%;
+    --educational-300: 220 55% 75%;
+    --educational-400: 220 50% 65%;
+    --educational-500: 220 85% 45%;
+    --educational-600: 220 85% 40%;
+    --educational-700: 220 85% 35%;
+    --educational-800: 220 85% 30%;
+    --educational-900: 220 85% 25%;
 
-    /* Success/growth colors */
-    --success-50: 120 60% 96%;
-    --success-100: 120 55% 90%;
-    --success-200: 120 50% 80%;
-    --success-300: 120 45% 70%;
-    --success-400: 120 40% 60%;
-    --success-500: 120 45% 50%;
-    --success-600: 120 50% 45%;
-    --success-700: 120 55% 40%;
-    --success-800: 120 60% 35%;
-    --success-900: 120 65% 30%;
+    /* Academic success colors */
+    --success-50: 140 60% 97%;
+    --success-100: 140 55% 92%;
+    --success-200: 140 50% 85%;
+    --success-300: 140 45% 75%;
+    --success-400: 140 40% 65%;
+    --success-500: 140 45% 55%;
+    --success-600: 140 50% 45%;
+    --success-700: 140 55% 35%;
+    --success-800: 140 60% 25%;
+    --success-900: 140 65% 20%;
 
-    /* Warm accent colors */
-    --warm-50: 35 100% 97%;
-    --warm-100: 35 95% 92%;
-    --warm-200: 35 90% 85%;
-    --warm-300: 35 85% 75%;
-    --warm-400: 35 80% 65%;
-    --warm-500: 35 75% 55%;
-    --warm-600: 35 70% 45%;
-    --warm-700: 35 65% 35%;
-    --warm-800: 35 60% 25%;
-    --warm-900: 35 55% 15%;
+    /* Professional accent colors */
+    --accent-50: 260 100% 98%;
+    --accent-100: 260 95% 94%;
+    --accent-200: 260 90% 88%;
+    --accent-300: 260 85% 78%;
+    --accent-400: 260 80% 68%;
+    --accent-500: 260 75% 58%;
+    --accent-600: 260 70% 48%;
+    --accent-700: 260 65% 38%;
+    --accent-800: 260 60% 28%;
+    --accent-900: 260 55% 18%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -84,25 +84,25 @@
   }
 
   .dark {
-    --background: 30 15% 8%;
-    --foreground: 35 20% 95%;
-    --card: 30 15% 10%;
-    --card-foreground: 35 20% 95%;
-    --popover: 30 15% 10%;
-    --popover-foreground: 35 20% 95%;
-    --primary: 200 85% 60%;
-    --primary-foreground: 30 15% 8%;
-    --secondary: 30 10% 15%;
-    --secondary-foreground: 35 20% 95%;
-    --muted: 30 10% 15%;
-    --muted-foreground: 35 15% 65%;
-    --accent: 30 10% 15%;
-    --accent-foreground: 35 20% 95%;
+    --background: 210 20% 8%;
+    --foreground: 210 20% 95%;
+    --card: 210 20% 10%;
+    --card-foreground: 210 20% 95%;
+    --popover: 210 20% 10%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 220 85% 60%;
+    --primary-foreground: 210 20% 8%;
+    --secondary: 210 15% 15%;
+    --secondary-foreground: 210 20% 95%;
+    --muted: 210 15% 15%;
+    --muted-foreground: 210 20% 65%;
+    --accent: 210 15% 15%;
+    --accent-foreground: 210 20% 95%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 30 10% 18%;
-    --input: 30 10% 18%;
-    --ring: 200 85% 60%;
+    --border: 210 15% 18%;
+    --input: 210 15% 18%;
+    --ring: 220 85% 60%;
   }
 }
 
@@ -117,56 +117,47 @@
   }
 }
 
-/* Cozy animations */
-@keyframes gentle-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes fade-in {
+/* Professional animations */
+@keyframes slide-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.animate-gentle-float {
-  animation: gentle-float 3s ease-in-out infinite;
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out;
+  animation: fade-in 0.4s ease-out;
 }
 
-.animate-slide-in-left {
-  animation: slide-in-left 0.6s ease-out;
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out;
 }
 
-.animate-slide-in-right {
-  animation: slide-in-right 0.6s ease-out;
-}
-
-/* Custom scrollbar */
+/* Professional scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
   background: hsl(var(--muted));
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

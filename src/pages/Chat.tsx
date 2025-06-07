@@ -5,16 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { GraduationCap, ArrowLeft, Send, MessageCircle, Bot, User, Sparkles, Coffee } from "lucide-react";
+import { GraduationCap, ArrowLeft, Send, MessageCircle, Bot, User, Sparkles, BookOpen, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Chat = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [answerType, setAnswerType] = useState<"2mark" | "16mark">("2mark");
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your cozy AI study companion for Anna University exam preparation. I can help you with 2-mark and 16-mark answers based on university evaluation patterns. What would you like to know? ☕",
+      text: "Hello! I'm your AI study companion for Anna University exam preparation. I can help you with 2-mark and 16-mark answers based on university evaluation patterns. Select your preferred answer type and ask me anything!",
       sender: "ai",
       timestamp: new Date().toLocaleTimeString()
     }
@@ -38,6 +39,10 @@ const Chat = () => {
     setIsTyping(true);
 
     try {
+      const promptType = answerType === "2mark" 
+        ? "Provide a concise 2-mark answer format with key points (maximum 2-3 sentences with bullet points if needed)"
+        : "Provide a detailed 16-mark answer format with introduction, detailed explanation with examples, and conclusion (comprehensive response with proper structure)";
+
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDkbEjn21-DvyI795K4fR1N5irLt1Is2H0`, {
         method: 'POST',
         headers: {
@@ -46,18 +51,18 @@ const Chat = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `You are a friendly, cozy AI study companion specialized in Anna University exam preparation. Please provide educational answers in the Anna University evaluation format. If the question is suitable for a 2-mark answer, provide a concise response with key points. If it requires a detailed explanation, structure it as a 16-mark answer with introduction, detailed explanation, examples, and conclusion.
+              text: `You are a professional AI assistant specialized in Anna University exam preparation. ${promptType}
 
 Question: ${currentQuestion}
 
-Please format your response appropriately for Anna University evaluation standards with a warm, friendly tone.`
+Please format your response appropriately for Anna University evaluation standards with clear structure and academic language.`
             }]
           }],
           generationConfig: {
             temperature: 0.7,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 1024,
+            maxOutputTokens: answerType === "2mark" ? 512 : 1024,
           },
         }),
       });
@@ -80,14 +85,14 @@ Please format your response appropriately for Anna University evaluation standar
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       toast({
-        title: "Oops! Something went wrong",
-        description: "I'm having trouble connecting right now. Please try again in a moment. ☕",
+        title: "Connection Error",
+        description: "I'm having trouble connecting right now. Please try again in a moment.",
         variant: "destructive"
       });
       
       const errorMessage = {
         id: messages.length + 2,
-        text: "Sorry, I'm having trouble connecting right now. Please try again in a moment. Don't worry, I'll be back to help you soon! ☕",
+        text: "Sorry, I'm having trouble connecting right now. Please try again in a moment.",
         sender: "ai" as const,
         timestamp: new Date().toLocaleTimeString()
       };
@@ -107,9 +112,9 @@ Please format your response appropriately for Anna University evaluation standar
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-50 via-educational-50 to-success-50">
+    <div className="min-h-screen bg-gradient-to-br from-educational-50 via-background to-success-50">
       {/* Navigation */}
-      <nav className="bg-white/90 backdrop-blur-sm border-b border-warm-200 sticky top-0 z-50">
+      <nav className="bg-white/95 backdrop-blur-sm border-b border-educational-200 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <Button 
@@ -132,31 +137,69 @@ Please format your response appropriately for Anna University evaluation standar
               <Sparkles className="h-3 w-3 mr-1" />
               AI Assistant
             </Badge>
-            <Badge variant="outline" className="text-warm-600 border-warm-300">
-              <Coffee className="h-3 w-3 mr-1" />
-              Cozy Mode
-            </Badge>
           </div>
         </div>
       </nav>
 
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
+        <div className="text-center mb-8 animate-slide-up">
           <h1 className="text-4xl font-bold mb-2 text-educational-900 flex items-center justify-center">
             <MessageCircle className="h-10 w-10 mr-3" />
-            Your Cozy AI Study Session
+            AI Study Assistant
           </h1>
           <p className="text-xl text-gray-600">
-            Ask me anything about your subjects - I'll help you understand and excel! ☕
+            Professional exam preparation with structured answers
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Chat Section */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Answer Type Selection */}
+            <Card className="shadow-lg bg-white/90 backdrop-blur-sm animate-fade-in">
+              <CardHeader>
+                <CardTitle className="text-lg text-educational-900 flex items-center">
+                  <BookOpen className="h-5 w-5 mr-2" />
+                  Answer Type Selection
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex space-x-4">
+                  <Button
+                    variant={answerType === "2mark" ? "default" : "outline"}
+                    onClick={() => setAnswerType("2mark")}
+                    className={answerType === "2mark" 
+                      ? "bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700" 
+                      : "border-educational-300 hover:bg-educational-50"
+                    }
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    2-Mark Answers
+                  </Button>
+                  <Button
+                    variant={answerType === "16mark" ? "default" : "outline"}
+                    onClick={() => setAnswerType("16mark")}
+                    className={answerType === "16mark" 
+                      ? "bg-gradient-to-r from-educational-600 to-success-600 hover:from-educational-700 hover:to-success-700" 
+                      : "border-educational-300 hover:bg-educational-50"
+                    }
+                  >
+                    <BookOpen className="h-4 w-4 mr-2" />
+                    16-Mark Answers
+                  </Button>
+                </div>
+                <p className="text-sm text-gray-600 mt-3">
+                  {answerType === "2mark" 
+                    ? "Get concise answers with key points for quick revision"
+                    : "Get detailed explanations with examples and comprehensive coverage"
+                  }
+                </p>
+              </CardContent>
+            </Card>
+
             {/* Chat Messages */}
-            <Card className="h-96 overflow-hidden shadow-lg bg-white/80 backdrop-blur-sm">
+            <Card className="h-96 overflow-hidden shadow-lg bg-white/90 backdrop-blur-sm">
               <CardContent className="p-0 h-full flex flex-col">
                 <div className="flex-1 overflow-y-auto p-6 space-y-4">
                   {messages.map((message) => (
@@ -165,10 +208,10 @@ Please format your response appropriately for Anna University evaluation standar
                       className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div className={`flex max-w-[85%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                        <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+                        <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
                           message.sender === 'user' 
                             ? 'bg-gradient-to-r from-educational-600 to-success-600 ml-3' 
-                            : 'bg-gradient-to-r from-warm-600 to-educational-600 mr-3'
+                            : 'bg-gradient-to-r from-educational-600 to-success-600 mr-3'
                         }`}>
                           {message.sender === 'user' ? (
                             <User className="h-5 w-5 text-white" />
@@ -176,10 +219,10 @@ Please format your response appropriately for Anna University evaluation standar
                             <Bot className="h-5 w-5 text-white" />
                           )}
                         </div>
-                        <div className={`rounded-2xl p-4 ${
+                        <div className={`rounded-xl p-4 ${
                           message.sender === 'user' 
                             ? 'bg-gradient-to-r from-educational-600 to-success-600 text-white' 
-                            : 'bg-white border border-warm-200 shadow-sm'
+                            : 'bg-white border border-educational-200 shadow-sm'
                         }`}>
                           <p className="whitespace-pre-line text-sm leading-relaxed">
                             {message.text}
@@ -197,14 +240,14 @@ Please format your response appropriately for Anna University evaluation standar
                   {isTyping && (
                     <div className="flex justify-start">
                       <div className="flex">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-warm-600 to-educational-600 flex items-center justify-center mr-3">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-r from-educational-600 to-success-600 flex items-center justify-center mr-3">
                           <Bot className="h-5 w-5 text-white" />
                         </div>
-                        <div className="bg-white border border-warm-200 rounded-2xl p-4 shadow-sm">
+                        <div className="bg-white border border-educational-200 rounded-xl p-4 shadow-sm">
                           <div className="flex space-x-1">
                             <div className="w-2 h-2 bg-educational-400 rounded-full animate-bounce"></div>
                             <div className="w-2 h-2 bg-success-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                            <div className="w-2 h-2 bg-warm-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                            <div className="w-2 h-2 bg-educational-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                           </div>
                         </div>
                       </div>
@@ -215,15 +258,15 @@ Please format your response appropriately for Anna University evaluation standar
             </Card>
 
             {/* Message Input */}
-            <Card className="shadow-lg bg-white/80 backdrop-blur-sm">
+            <Card className="shadow-lg bg-white/90 backdrop-blur-sm">
               <CardContent className="p-4">
                 <div className="flex space-x-3">
                   <Input
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
-                    placeholder="Ask me anything about your subjects... 📚"
+                    placeholder="Ask me anything about your subjects..."
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                    className="flex-1 border-warm-200 focus:border-educational-400 bg-white/50"
+                    className="flex-1 border-educational-200 focus:border-educational-400 bg-white/50"
                   />
                   <Button 
                     onClick={handleSendMessage}
@@ -234,8 +277,8 @@ Please format your response appropriately for Anna University evaluation standar
                   </Button>
                 </div>
                 <p className="text-xs text-gray-500 mt-2 flex items-center">
-                  <Coffee className="h-3 w-3 mr-1" />
-                  Get structured answers in 2-mark and 16-mark formats as per Anna University evaluation pattern
+                  <BookOpen className="h-3 w-3 mr-1" />
+                  Get structured answers in {answerType === "2mark" ? "2-mark" : "16-mark"} format as per Anna University evaluation pattern
                 </p>
               </CardContent>
             </Card>
@@ -244,7 +287,7 @@ Please format your response appropriately for Anna University evaluation standar
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Quick Questions */}
-            <Card className="shadow-lg bg-white/80 backdrop-blur-sm">
+            <Card className="shadow-lg bg-white/90 backdrop-blur-sm animate-scale-in">
               <CardHeader>
                 <CardTitle className="text-lg text-educational-900 flex items-center">
                   <Sparkles className="h-5 w-5 mr-2" />
@@ -257,7 +300,7 @@ Please format your response appropriately for Anna University evaluation standar
                     <Button
                       key={index}
                       variant="outline"
-                      className="w-full text-left h-auto p-3 hover:bg-educational-50 border-warm-200 text-sm"
+                      className="w-full text-left h-auto p-3 hover:bg-educational-50 border-educational-200 text-sm"
                       onClick={() => setInputMessage(question)}
                     >
                       {question}
@@ -277,30 +320,30 @@ Please format your response appropriately for Anna University evaluation standar
                 <p className="text-sm text-gray-600">Concise, direct answers with key points</p>
               </Card>
               
-              <Card className="text-center p-4 shadow-lg bg-gradient-to-r from-success-50 to-warm-50">
-                <div className="w-12 h-12 bg-gradient-to-r from-success-600 to-warm-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Card className="text-center p-4 shadow-lg bg-gradient-to-r from-success-50 to-educational-50">
+                <div className="w-12 h-12 bg-gradient-to-r from-success-600 to-educational-600 rounded-xl flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">16M</span>
                 </div>
                 <h3 className="font-semibold text-educational-900 mb-2">16-Mark Answers</h3>
                 <p className="text-sm text-gray-600">Detailed explanations with examples</p>
               </Card>
               
-              <Card className="text-center p-4 shadow-lg bg-gradient-to-r from-warm-50 to-educational-50">
-                <div className="w-12 h-12 bg-gradient-to-r from-warm-600 to-educational-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Coffee className="h-6 w-6 text-white" />
+              <Card className="text-center p-4 shadow-lg bg-gradient-to-r from-educational-50 to-success-50">
+                <div className="w-12 h-12 bg-gradient-to-r from-educational-600 to-success-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <BookOpen className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="font-semibold text-educational-900 mb-2">Cozy Learning</h3>
-                <p className="text-sm text-gray-600">Warm, friendly study environment</p>
+                <h3 className="font-semibold text-educational-900 mb-2">Professional Learning</h3>
+                <p className="text-sm text-gray-600">Structured academic approach</p>
               </Card>
             </div>
           </div>
         </div>
 
         {/* Study Tips */}
-        <Card className="mt-8 shadow-lg bg-gradient-to-r from-warm-100 to-educational-100">
+        <Card className="mt-8 shadow-lg bg-gradient-to-r from-educational-100 to-success-100">
           <CardHeader>
             <CardTitle className="text-lg text-educational-900 flex items-center">
-              <Coffee className="h-5 w-5 mr-2" />
+              <BookOpen className="h-5 w-5 mr-2" />
               Study Tips for Anna University Exams
             </CardTitle>
           </CardHeader>
