@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +15,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI assistant for Anna University exam preparation. I can help you with structured answers based on university evaluation patterns. Choose between **2-mark quick responses** or **16-mark detailed explanations**. What would you like to know?",
+      text: "Hello! I'm your AI assistant for Anna University exam preparation. I can help you with structured answers based on university evaluation patterns. Choose between <strong>2-mark quick responses</strong> or <strong>16-mark detailed explanations</strong>. What would you like to know?",
       sender: "ai",
       timestamp: new Date().toLocaleTimeString()
     }
@@ -86,7 +87,7 @@ const Chat = () => {
     if (!selectedAnswerType) {
       toast({
         title: "Select answer format",
-        description: "Please choose between **2-mark** or **16-mark** answer format.",
+        description: "Please choose between 2-mark or 16-mark answer format.",
         variant: "destructive"
       });
       return;
@@ -117,8 +118,8 @@ const Chat = () => {
 
     try {
       const answerTypePrompt = selectedAnswerType === "2mark" 
-        ? "Provide a concise, structured **2-mark answer** with key points. Keep it brief but comprehensive, suitable for quick revision."
-        : "Provide a detailed, comprehensive **16-mark answer** with introduction, detailed explanation, examples, diagrams if applicable, and conclusion. Structure it with proper headings and subpoints.";
+        ? "Provide a concise, structured 2-mark answer with key points. Keep it brief but comprehensive, suitable for quick revision."
+        : "Provide a detailed, comprehensive 16-mark answer with introduction, detailed explanation, examples, diagrams if applicable, and conclusion. Structure it with proper headings and subpoints.";
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDkbEjn21-DvyI795K4fR1N5irLt1Is2H0`, {
         method: 'POST',
@@ -223,7 +224,7 @@ Please format your response appropriately for Anna University evaluation standar
                   <GraduationCap className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
                 <div>
-                  <span className="text-xl lg:text-2xl font-bold text-educational-900">**Stubud.io**</span>
+                  <span className="text-xl lg:text-2xl font-bold text-educational-900">Stubud.io</span>
                   <p className="text-xs text-educational-600 hidden sm:block">AI Chat Assistant</p>
                 </div>
               </div>
@@ -235,8 +236,8 @@ Please format your response appropriately for Anna University evaluation standar
                 className="bg-gradient-to-r from-success-600 to-educational-600 hover:from-success-700 hover:to-educational-700 text-white px-3 py-1.5 text-sm"
               >
                 <Crown className="h-3 w-3 mr-1" />
-                <span className="hidden sm:inline">**Upgrade**</span>
-                <span className="sm:hidden">**Pro**</span>
+                <span className="hidden sm:inline">Upgrade</span>
+                <span className="sm:hidden">Pro</span>
               </Button>
               <Badge className="bg-gradient-to-r from-educational-600 to-success-600 text-white px-3 py-1">
                 <Sparkles className="h-3 w-3 mr-1" />
@@ -253,10 +254,10 @@ Please format your response appropriately for Anna University evaluation standar
         <div className="text-center mb-8 animate-fade-in">
           <h1 className="text-3xl lg:text-4xl font-bold mb-2 text-educational-900 flex items-center justify-center">
             <MessageCircle className="h-8 w-8 lg:h-10 lg:w-10 mr-3" />
-            **AI Chat Assistant**
+            AI Chat Assistant
           </h1>
           <p className="text-lg lg:text-xl text-foreground/80">
-            Get answers in **Anna University evaluation format**
+            Get answers in <strong>Anna University evaluation format</strong>
           </p>
         </div>
 
@@ -265,7 +266,7 @@ Please format your response appropriately for Anna University evaluation standar
           <CardContent className="p-4">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="font-semibold text-educational-900">**Daily Usage** (Free Plan)</h3>
+                <h3 className="font-semibold text-educational-900">Daily Usage (Free Plan)</h3>
                 <p className="text-sm text-educational-600">Resets every day at midnight</p>
               </div>
               <div className="text-right">
@@ -279,7 +280,7 @@ Please format your response appropriately for Anna University evaluation standar
                   size="sm"
                   className="mt-2 bg-success-600 hover:bg-success-700 text-white"
                 >
-                  **Upgrade for Unlimited**
+                  Upgrade for Unlimited
                 </Button>
               </div>
             </div>
@@ -290,10 +291,10 @@ Please format your response appropriately for Anna University evaluation standar
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-lg text-educational-900 flex items-center">
-              <span>**Choose Answer Format**</span>
+              <span>Choose Answer Format</span>
               {selectedAnswerType && (
                 <Badge className="ml-3 bg-success-100 text-success-700">
-                  {selectedAnswerType === "2mark" ? "**2-Mark Selected**" : "**16-Mark Selected**"}
+                  {selectedAnswerType === "2mark" ? "2-Mark Selected" : "16-Mark Selected"}
                 </Badge>
               )}
             </CardTitle>
@@ -311,7 +312,7 @@ Please format your response appropriately for Anna University evaluation standar
                 disabled={usageCount.twoMark >= FREE_LIMITS.twoMark}
               >
                 <div>
-                  <div className="font-semibold text-lg mb-1">**2-Mark Answer**</div>
+                  <div className="font-semibold text-lg mb-1">2-Mark Answer</div>
                   <div className="text-sm opacity-80">Quick, concise responses with key points</div>
                   <div className="text-xs mt-1">
                     Remaining: {FREE_LIMITS.twoMark - usageCount.twoMark}
@@ -329,7 +330,7 @@ Please format your response appropriately for Anna University evaluation standar
                 disabled={usageCount.sixteenMark >= FREE_LIMITS.sixteenMark}
               >
                 <div>
-                  <div className="font-semibold text-lg mb-1">**16-Mark Answer**</div>
+                  <div className="font-semibold text-lg mb-1">16-Mark Answer</div>
                   <div className="text-sm opacity-80">Detailed explanations with examples</div>
                   <div className="text-xs mt-1">
                     Remaining: {FREE_LIMITS.sixteenMark - usageCount.sixteenMark}
@@ -440,7 +441,7 @@ Please format your response appropriately for Anna University evaluation standar
               </Button>
             </div>
             <p className="text-xs text-foreground/60 mt-2">
-              Choose answer format above, then ask your question to get structured responses per **Anna University evaluation pattern**
+              Choose answer format above, then ask your question to get structured responses per <strong>Anna University evaluation pattern</strong>
             </p>
           </CardContent>
         </Card>

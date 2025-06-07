@@ -128,10 +128,10 @@ Please verify and activate the premium subscription for this user.
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl lg:text-5xl font-bold mb-4 text-educational-900">
-            Choose Your **Learning Plan**
+            Choose Your <strong>Learning Plan</strong>
           </h1>
           <p className="text-lg lg:text-xl text-foreground/80 max-w-2xl mx-auto">
-            Start for **free** or unlock unlimited access with our affordable premium plan
+            Start for <strong>free</strong> or unlock unlimited access with our affordable premium plan
           </p>
         </div>
 
@@ -143,7 +143,7 @@ Please verify and activate the premium subscription for this user.
               <div className="w-16 h-16 bg-educational-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Zap className="h-8 w-8 text-educational-600" />
               </div>
-              <CardTitle className="text-2xl text-educational-900">**Free Plan**</CardTitle>
+              <CardTitle className="text-2xl text-educational-900">Free Plan</CardTitle>
               <div className="text-4xl font-bold text-educational-900">₹0</div>
               <p className="text-educational-600">Perfect for trying out</p>
             </CardHeader>
@@ -151,11 +151,11 @@ Please verify and activate the premium subscription for this user.
               <div className="space-y-3">
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**3** x 2-mark answers per day</span>
+                  <span><strong>3</strong> x 2-mark answers per day</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**2** x 16-mark answers per day</span>
+                  <span><strong>2</strong> x 16-mark answers per day</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
@@ -180,38 +180,38 @@ Please verify and activate the premium subscription for this user.
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
               <Badge className="bg-gradient-to-r from-success-600 to-educational-600 text-white px-4 py-1">
                 <Star className="h-3 w-3 mr-1" />
-                **Most Popular**
+                Most Popular
               </Badge>
             </div>
             <CardHeader className="text-center pb-4 pt-8">
               <div className="w-16 h-16 bg-gradient-to-r from-success-100 to-educational-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="h-8 w-8 text-success-600" />
               </div>
-              <CardTitle className="text-2xl text-educational-900">**Premium Plan**</CardTitle>
+              <CardTitle className="text-2xl text-educational-900">Premium Plan</CardTitle>
               <div className="text-4xl font-bold text-success-600">₹49</div>
-              <p className="text-educational-600">**Unlimited access** for 30 days</p>
+              <p className="text-educational-600"><strong>Unlimited access</strong> for 30 days</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**Unlimited** 2-mark answers</span>
+                  <span><strong>Unlimited</strong> 2-mark answers</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**Unlimited** 16-mark answers</span>
+                  <span><strong>Unlimited</strong> 16-mark answers</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**Priority** AI responses</span>
+                  <span><strong>Priority</strong> AI responses</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**Advanced** formatting</span>
+                  <span><strong>Advanced</strong> formatting</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-success-600 mr-3" />
-                  <span>**24/7** support</span>
+                  <span><strong>24/7</strong> support</span>
                 </div>
               </div>
               <Button 
@@ -230,16 +230,16 @@ Please verify and activate the premium subscription for this user.
           <CardHeader>
             <CardTitle className="text-xl text-educational-900 flex items-center">
               <Shield className="h-6 w-6 mr-2" />
-              **Payment Verification**
+              Payment Verification
             </CardTitle>
             <p className="text-foreground/70">
-              After completing payment, enter your transaction details for **instant activation**
+              After completing payment, enter your transaction details for <strong>instant activation</strong>
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-educational-900 mb-2">
-                **Transaction ID**
+                Transaction ID
               </label>
               <Input
                 value={transactionId}
@@ -250,7 +250,7 @@ Please verify and activate the premium subscription for this user.
             </div>
             <div>
               <label className="block text-sm font-medium text-educational-900 mb-2">
-                **Email Address**
+                Email Address
               </label>
               <Input
                 type="email"
@@ -265,10 +265,10 @@ Please verify and activate the premium subscription for this user.
               disabled={isSubmitting || !transactionId.trim() || !email.trim()}
               className="w-full bg-educational-600 hover:bg-educational-700 text-white"
             >
-              {isSubmitting ? "Submitting..." : "**Submit for Verification**"}
+              {isSubmitting ? "Submitting..." : "Submit for Verification"}
             </Button>
             <p className="text-xs text-foreground/60 text-center">
-              Verification usually takes **less than 24 hours**. You'll receive confirmation via email.
+              Verification usually takes <strong>less than 24 hours</strong>. You'll receive confirmation via email.
             </p>
           </CardContent>
         </Card>
@@ -276,19 +276,19 @@ Please verify and activate the premium subscription for this user.
         {/* FAQ Section */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl lg:text-3xl font-bold mb-8 text-educational-900">
-            **Frequently Asked Questions**
+            Frequently Asked Questions
           </h2>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <Card className="text-left">
               <CardContent className="p-6">
-                <h3 className="font-semibold text-educational-900 mb-2">**How does the free plan work?**</h3>
-                <p className="text-foreground/70">You get **3 daily 2-mark answers** and **2 daily 16-mark answers**. Perfect for trying out our service!</p>
+                <h3 className="font-semibold text-educational-900 mb-2">How does the free plan work?</h3>
+                <p className="text-foreground/70">You get <strong>3 daily 2-mark answers</strong> and <strong>2 daily 16-mark answers</strong>. Perfect for trying out our service!</p>
               </CardContent>
             </Card>
             <Card className="text-left">
               <CardContent className="p-6">
-                <h3 className="font-semibold text-educational-900 mb-2">**How long does verification take?**</h3>
-                <p className="text-foreground/70">Usually **within 24 hours**. We'll send you an email confirmation once your premium access is activated.</p>
+                <h3 className="font-semibold text-educational-900 mb-2">How long does verification take?</h3>
+                <p className="text-foreground/70">Usually <strong>within 24 hours</strong>. We'll send you an email confirmation once your premium access is activated.</p>
               </CardContent>
             </Card>
           </div>
